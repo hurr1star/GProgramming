@@ -1,0 +1,2 @@
+﻿  GProgramming.cpp
+C:\Users\Michael\source\repos\GProgramming\GProgramming\GProgramming.cpp(1,10): fatal  error C1083: Datei (Include) kann nicht geöffnet werden: "GLFW/glfw3.h": No such file or directory
