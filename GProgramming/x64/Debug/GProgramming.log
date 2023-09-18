@@ -1,3 +1,2 @@
 ﻿  ColorTriangle.cpp
-LINK : warning LNK4098: Standardbibliothek "MSVCRT" steht in Konflikt mit anderen Bibliotheken; /NODEFAULTLIB:Bibliothek verwenden.
   GProgramming.vcxproj -> C:\Users\Michael\source\repos\GProgramming\x64\Debug\GProgramming.exe

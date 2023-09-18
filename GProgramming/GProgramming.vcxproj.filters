@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ColorTriangle.cpp">
+    <ClCompile Include="MainArea.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
