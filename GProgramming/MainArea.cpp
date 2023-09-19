@@ -5,13 +5,21 @@ int resX = 640;
 int resY = 360;
 
 bool colorSwap = false;
+double lastColorChangeTime = 0.0;
+double colorChangeInterval = 1.0; // 1 second interval
+
+bool swapRunning = false;
 
 void swap_bg_color()
 {
+    colorSwap = !colorSwap;
+    // swap the color (oranange blue)
     if (colorSwap)
-        colorSwap = false;
+    {
+        glClearColor(1.0f, 0.5f, 0.0f, 1.0f); // R, G, B, Alpha
+    }
     else
-        colorSwap = true;
+        glClearColor(0.0f, 0.0f, 1.0f, 1.0f); // R, G, B, Alpha
 }
 
 // Function to handle keyboard input
@@ -20,15 +28,22 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         // 'q' key was pressed
         std::cout << "The 'q' key was pressed!" << std::endl;
 
-        colorSwap = !colorSwap;
+        // call the core func for the colors
+        //swap_bg_color();
 
-        // swap the color (oranange blue)
-        if (colorSwap)
-        {
-            glClearColor(1.0f, 0.5f, 0.0f, 1.0f); // R, G, B, Alpha
-        }
-        else
-            glClearColor(0.0f, 0.0f, 1.0f, 1.0f); // R, G, B, Alpha
+        // Toogle the swap
+        swapRunning = !swapRunning;
+
+        std::cout << swapRunning << std::endl;
+    }
+
+    // Escape only on release ESC key
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
+    {
+        std::cout << "lets get outta here" << std::endl;
+
+        // call window close
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
 }
 
@@ -73,11 +88,24 @@ int main() {
     // Make the window's context current
     glfwMakeContextCurrent(window);
 
+    // Start with colorized window area
+    swap_bg_color();
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Render graphics here (not included in this basic example)
+        // Calculate the time elapsed since the last color change
+        double currentTime = glfwGetTime();
+        std::cout << currentTime << std::endl;
+        double elapsedTime = currentTime - lastColorChangeTime;
+        std::cout << elapsedTime << std::endl;
+
+        // Check if it's time to swap colors
+        if (elapsedTime >= colorChangeInterval && swapRunning) {
+            swap_bg_color();
+            lastColorChangeTime = currentTime;
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
